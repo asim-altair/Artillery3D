@@ -25,11 +25,14 @@ public class Vehicle : MonoBehaviour
 
     private float waitTime = 0.3f;
 
+    GameManger gameManger;
+
 
     private void Start()
     {
         destination = GameObject.FindGameObjectWithTag("Player");
         camera1 = GameObject.Find("camera holder").transform;
+        gameManger = GameObject.Find("GameManger").GetComponent<GameManger>();
     }
     void Update()
     {
@@ -75,6 +78,7 @@ public class Vehicle : MonoBehaviour
     {
         if (health <= 0 && died == false)
         {
+            gameManger.vehicles++;
             Instantiate(destroyedVeh, transform.position, transform.rotation);
             Destroy(gameObject);
         }

@@ -39,6 +39,10 @@ public class Firing : MonoBehaviour
     public float shakeDurration;
     public float shakeAmplitude;
 
+    private float reloadingDelay = 3f;
+    private float reloadTime;
+    public Gun gun;
+
     private void Start()
     {
         // recoil position fetcher
@@ -49,6 +53,8 @@ public class Firing : MonoBehaviour
         shootSound = GetComponent<AudioSource>();
         // trajectory
         lineRenderer = GetComponent<LineRenderer>();
+
+        reloadTime = 3 / gun.reloadTime;
     }
 
     private void Update()
@@ -62,26 +68,36 @@ public class Firing : MonoBehaviour
         DrawTrajectory();
         //crosshair
         crosshair.transform.Rotate(0, 0, crosshairRotationSpeed * Time.deltaTime);
+
+        reloadingDelay += Time.deltaTime;
     }
 
     public void Shoot()
     {
-        // shoot
-        Instantiate(shell, firePoint.position, firePoint.rotation);
+        if(reloadingDelay >= reloadTime)
+        {
+            reloadingDelay = 0;
+            // shoot
+            Instantiate(shell, firePoint.position, firePoint.rotation);
 
-        // recoil
-        recoilHolder.transform.localPosition -= new Vector3(0, 0, recoilAmount);
+            // recoil
+            recoilHolder.transform.localPosition -= new Vector3(0, 0, recoilAmount);
 
-        // reaction
-        deflectionControler.transform.localPosition -= new Vector3(0, 0, reactionAmount);
+            // reaction
+            deflectionControler.transform.localPosition -= new Vector3(0, 0, reactionAmount);
 
-        // camera shake
-        cameraShake.ShakeTrigger(shakeDurration, shakeAmplitude);
-        // sound
-        shootSound.Play();
-        // particle
-        shotParticle.Play();
-        smokeParticle.Play();
+            // camera shake
+            cameraShake.ShakeTrigger(shakeDurration, shakeAmplitude);
+            // sound
+            shootSound.Play();
+            // particle
+            shotParticle.Play();
+            smokeParticle.Play();
+        }
+        else
+        {
+            Debug.Log("Reloading");
+        }
     }
 
     private void DrawTrajectory()

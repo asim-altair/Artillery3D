@@ -16,6 +16,12 @@ public class GarageCode : MonoBehaviour
     public Slider reloadSlider;
 
     public Gun gun;
+
+    public TextMeshProUGUI[] priceForUpgrades;
+
+    public GameObject lessMoney;
+
+    public int[] price;
     void Update()
     {
         moneyfield.text = Player.Instance.money.ToString();
@@ -29,42 +35,76 @@ public class GarageCode : MonoBehaviour
         reloadTimeValue.text = gun.reloadTime.ToString();
         reloadSlider.value = gun.reloadTime;
 
+        if (gun.health == gun.maxHealth)
+        {
+            priceForUpgrades[0].text = "Max";
+        }
+        else
+        {
+            priceForUpgrades[0].text = price[0].ToString();
+        }
+
+        if (gun.mobility == gun.maxMobility)
+        {
+            priceForUpgrades[1].text = "Max";
+        }
+        else
+        {
+            priceForUpgrades[1].text = price[1].ToString();
+        }
+
+        if (gun.reloadTime == gun.maxReloadTime)
+        {
+            priceForUpgrades[2].text = "Max";
+        }
+        else
+        {
+            priceForUpgrades[2].text = price[2].ToString();
+        }
     }
 
     public void UpgradeHealth()
     {
-        if(Player.Instance.money >= 500 && gun.health < gun.maxHealth)
+        if(Player.Instance.money >= price[0] && gun.health < gun.maxHealth)
         {
             gun.health += 50;
-            Player.Instance.RemoveMoney(500);
+            Player.Instance.RemoveMoney(price[0]);
+            price[0] += price[0] / 2;
         }
         else
         {
-            Debug.Log("Don't have money");
+            DontHaveMoney();
         }
     }
     public void UpgradeMobility()
     {
-        if (Player.Instance.money >= 500)
+        if (Player.Instance.money >= price[1] && gun.mobility < gun.maxMobility)
         {
-            gun.mobility += 1;
-            Player.Instance.RemoveMoney(500);
+            gun.mobility += 0.4f;
+            Player.Instance.RemoveMoney(price[1]);
+            price[1] += price[1] / 2;
         }
         else
         {
-            Debug.Log("Don't have money");
+            DontHaveMoney();
         }
     }
     public void UpgradeReloading()
     {
-        if (Player.Instance.money >= 500)
+        if (Player.Instance.money >= price[2] && gun.reloadTime < gun.maxReloadTime)
         {
-            gun.reloadTime += 1;
-            Player.Instance.RemoveMoney(500);
+            gun.reloadTime += 0.5f;
+            Player.Instance.RemoveMoney(price[2]);
+            price[2] += price[2] / 2;
         }
         else
         {
-            Debug.Log("Don't have money");
+            DontHaveMoney();
         }
+    }
+
+    public void DontHaveMoney()
+    {
+        lessMoney.SetActive(true);
     }
 }

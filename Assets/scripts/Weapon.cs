@@ -12,10 +12,17 @@ public class Weapon : MonoBehaviour
 
     public bool isDead = false;
     public GameObject destroyed;
+    public Gun gun;
 
+    private void Start()
+    {
+        health = gun.health;
+        healthBar.maxValue = health;
+    }
 
     private void Update()
     {
+        Debug.Log(health);
         healthBar.value = health;
         if(imageEffect.enabled == true)
         {

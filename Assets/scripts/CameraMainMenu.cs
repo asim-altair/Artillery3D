@@ -9,17 +9,18 @@ public class CameraMainMenu : MonoBehaviour
     private float moveX;
     private float moveY;
 
-    private void Start()
-    {
-
-    }
+    private bool autoRotate = true;
 
     private void Update()
     {
-        
+        if (autoRotate)
+        {
+            transform.Rotate(0, 10 * Time.deltaTime, 0, Space.Self);
+        }
 
         if (Input.touchCount > 0)
         {
+            autoRotate = false;
             Touch touch = Input.GetTouch(0);
 
             // Get the swipe delta

@@ -8,7 +8,9 @@ public class Gun : ScriptableObject
 {
     public int health;
     public int maxHealth;
-    public int mobility;
+    public float mobility;
+    public float maxMobility;
     public float reloadTime;
+    public float maxReloadTime;
     public GameObject prefeb;
 }

@@ -50,6 +50,7 @@ public class Projectile : MonoBehaviour
             }
             Soldier soldier = collidingObjs[i].gameObject.GetComponent<Soldier>();
             Vehicle vehicle = collidingObjs[i].gameObject.GetComponent<Vehicle>();
+            Tank tank = collidingObjs[i].gameObject.GetComponent<Tank>();
             Rigidbody rb = collidingObjs[i].gameObject.GetComponent<Rigidbody>();
             if(rb != null)
             {
@@ -64,6 +65,10 @@ public class Projectile : MonoBehaviour
             if(vehicle != null)
             {
                 vehicle.TakeDamage(40);
+            }
+            if(tank != null)
+            {
+                tank.TakeDamage(40);
             }
 
         }

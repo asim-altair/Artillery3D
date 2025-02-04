@@ -13,4 +13,9 @@ public class DestroyedVeh : MonoBehaviour
             rb.AddExplosionForce(3, transform.position, 10, 7, ForceMode.Impulse); 
         }
     }
+
+    private void Update()
+    {
+        Destroy(gameObject, 5f);
+    }
 }

@@ -10,6 +10,7 @@ public class MissionSelector : MonoBehaviour
 
     private void Start()
     {
+        Player.Instance.selectedMission = Player.Instance.missions - 1;
         for(int i = Player.Instance.missions; i < buttons.Length; i++)
         {
             buttons[i].GetComponent<Button>().interactable = false;
@@ -19,6 +20,7 @@ public class MissionSelector : MonoBehaviour
 
     public void SelectMission(int value)
     {
+        Player.Instance.selectedMission = value;
         foreach (GameObject button in buttons)
         {
             Image image = button.GetComponent<Image>();

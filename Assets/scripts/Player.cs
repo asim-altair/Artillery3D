@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     public int missions = 1;
 
+    public int selectedMission;
+
     private void Awake()
     {
         if(Instance == null)

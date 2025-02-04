@@ -21,7 +21,12 @@ public class Movement : MonoBehaviour
 
     public GameObject lWheel;
     public GameObject rWheel;
-    
+
+    public Gun gun;
+    private void Start()
+    {
+        rotationSpeed = gun.mobility;
+    }
     void Update()
     {
         if(Input.touchCount > 0)

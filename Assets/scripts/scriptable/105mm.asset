@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 350
-  mobility: 1
+  mobility: 0.4
+  maxMobility: 2
   reloadTime: 1
+  maxReloadTime: 3
   prefeb: {fileID: 3114840182583945178, guid: 03f6cfc738b12594aafaa1fe33f96c3b, type: 3}
